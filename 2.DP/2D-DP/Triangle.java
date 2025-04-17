@@ -3,10 +3,6 @@ import java.util.List;
 public class Triangle {
     int m;
     int INF = Integer.MAX_VALUE;
-    public int minimumTotal(List<List<Integer>> triangle) {
-        m = triangle.size();
-        return 0;    
-    }
     public int recursive(List<List<Integer>> triangle,int row,int col){
         int n = triangle.get(row).size();
 
@@ -62,6 +58,47 @@ public class Triangle {
             res = curr + Math.min(first, sec);
         }
         return dp[row][col] = res;
+    }
+
+    public int tabulation(List<List<Integer>> triangle){
+        int[][] dp = new int[m][];
+
+        dp[m-1] = new int[triangle.get(m-1).size()];
+        List<Integer> lastRow = triangle.get(m-1);
+        dp[m-1] = new int[lastRow.size()];
+        for (int i = 0; i < lastRow.size(); i++) {
+            dp[m-1][i] = lastRow.get(i);
+        }
+
+        for(int i = m-2;i>=0;i--){
+            List<Integer> curr = triangle.get(i);
+            dp[i] = new int[curr.size()];
+            for(int j=0;j<curr.size();j++){
+                dp[i][j] = curr.get(j) + Math.min(dp[i+1][j], dp[i+1][j+1]);
+            }
+        }
+        return dp[0][0];
+    }
+
+    public int constantSpace(List<List<Integer>> triangle){
+        int[] dp = new int[triangle.size()];
+        List<Integer> lastRow = triangle.get(m-1);
+        for (int i = 0; i < lastRow.size(); i++) {
+            dp[i] = lastRow.get(i);
+        }
+
+        for(int i = m-2;i>=0;i--){
+            List<Integer> curr = triangle.get(i);
+            int[] temp = new int[curr.size()];
+            for(int j=0;j<curr.size();j++){
+                temp[j] = curr.get(j) + Math.min(dp[j], dp[j+1]);
+            }
+            dp = temp;
+        }
+
+
+
+        return dp[0];
     }
 
 
