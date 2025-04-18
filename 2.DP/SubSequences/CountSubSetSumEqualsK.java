@@ -3,8 +3,6 @@ public class CountSubSetSumEqualsK {
     // Will do strver top - bottom of starting n-1 -> 0
     public int recursive(int[] nums,int index,int target){
         // Base cases
-        // For target = 0
-        if(target == 0) return 1;
         
         // For index = 0
         if(index == 0) return nums[0] == target ? 1 : 0;
@@ -14,7 +12,8 @@ public class CountSubSetSumEqualsK {
         if(nums[index] <= target){
             take = recursive(nums, index - 1, target - nums[index]);
         } 
-        return take + reject;
+        int curr = target == 0  ? 1 : 0;
+        return take + reject + curr;
     }
 
     public int memoization(int[] nums,int index,int target,int[][] dp){
@@ -64,13 +63,8 @@ public class CountSubSetSumEqualsK {
     public static void  main(String[] args) {
         CountSubSetSumEqualsK obj = new CountSubSetSumEqualsK();
         // very big test case
-        int[] nums = new int[100000];
-        for(int i = 0; i < nums.length; i++){
-            nums[i] = 1;
-        }
-        int target = 100000;
-        int[][] dp = new int[100000][target+1];
-        int n = nums.length;
-        System.out.println(obj.tabulation(nums,target));
+        int[] nums = {0,0,1};
+
+        System.err.println("Recursive: " + obj.recursive(nums, nums.length - 1, 1));
     }   
 }
