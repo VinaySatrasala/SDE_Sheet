@@ -32,18 +32,37 @@ public class LCS {
         int n = s2.length();
         int[][] dp = new int[m + 1][n + 1];
 
-        for(int i=1;i<m;i++){
-            for(int j=1;j<n;j++){
-                if(s1.charAt(i) == s2.charAt(j)){
-                    dp[i + 1][j + 1] = 1 + dp[i][j];
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                if(s1.charAt(i - 1) == s2.charAt(j - 1)){
+                    dp[i][j] = 1 + dp[i-1][j-1];
                 }else{
-                    dp[i+1][j+1] = Math.max(dp[i][j+1] ,dp[i+1][j]);
+                    dp[i][j] = Math.max(dp[i][j-1] ,dp[i-1][j]);
                 }
             }
         }
+
+        int i = m;
+        int j = n;
+        String res = "";
+        while (i > 0 && j > 0) {
+            if(s1.charAt(i-1) == s2.charAt(j-1)){
+                res = s1.charAt(i-1) + res;
+                i--;
+                j--;
+            }else{
+                if(dp[i][j] == dp[i-1][j]){
+                    i--;
+                }else{
+                    j--;
+                }
+            }
+        }
+        System.out.println(res);
         return dp[m][n];
     }
 
+    
     public static String recursivePrint(String s1,String s2,int index1,int index2){
         if(index1 < 0 || index2 < 0){
             return "";
@@ -61,8 +80,9 @@ public class LCS {
     }
 
     public static void main(String[] args) {
-        System.out.println(recursivePrint("adaabc", "admanbnhc",5,8));
+        System.out.println(tabulation("adbc", "admanbnhc"));
         // System.out.println(memoization(null, null, 0, 0, null));
+        System.out.println();
     }
     
 }
