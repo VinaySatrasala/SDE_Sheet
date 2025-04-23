@@ -1,8 +1,9 @@
 {
     "java.project.sourcePaths": [
         "2.DP/SubSequences",
+        "2.DP/DPOnStrings",
         "2.DP/2D-DP",
         "2.DP/1D-DP",
-        "2.DP/DPOnStrings"
+        "2.DP/LIS"
     ]
 }
