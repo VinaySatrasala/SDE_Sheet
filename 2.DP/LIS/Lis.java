@@ -26,11 +26,7 @@ public class Lis {
         int n = nums.length;
         int[][] dp = new int[n + 1][n+1];
 
-        for(int index = 0;index < n;index++){
-            for(int prevIndex=1;prevIndex<n+1;index++){
-                if(nums[index] >)
-            }
-        }
+
         return 0;
     }
 
